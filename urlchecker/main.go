@@ -10,7 +10,9 @@ import (
 
 func main() {
 	c := make(chan string)
-	go CheckUrl(c)
+	for i := 0; i < 100; i++ {
+		go CheckUrl(c)
+	}
 	<-c
 }
 
