@@ -11,9 +11,7 @@ import (
 func main() {
 	c := make(chan string)
 	go CheckUrl(c)
-	v := <-c
-	fmt.Println("Value is:", v)
-
+	<-c
 }
 
 //CheckUrl to check url
@@ -31,7 +29,7 @@ func CheckUrl(c chan string) {
 			continue
 		}
 		fmt.Println(withHttp, resp.StatusCode, http.StatusText(resp.StatusCode))
+
 	}
 	c <- withHttp
-
 }
