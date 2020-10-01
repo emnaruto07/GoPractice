@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
@@ -30,7 +31,12 @@ func CheckUrl(c chan string) {
 		if err != nil {
 			continue
 		}
-		fmt.Println(withHttp, resp.StatusCode, http.StatusText(resp.StatusCode))
+		defer resp.Body.Close()
+		Body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			continue
+		}
+		fmt.Println(withHttp, resp.StatusCode, http.StatusText(resp.StatusCode), string(Body))
 
 	}
 	c <- withHttp
