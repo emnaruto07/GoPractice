@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"log"
 	"os"
 	"strings"
 
@@ -43,18 +45,36 @@ func imageDownloader(u string) {
 			for _, img := range comicElem {
 				comicURL = "http:" + img.Attrs()["src"]
 				fmt.Printf("Downloading image from %v...\n", comicURL)
+				resp, err := soup.Get(comicURL)
+				if err != nil {
+					log.Panic(err)
+				}
+				imgData := soup.HTMLParse(resp)
+				data := imgData.HTML()
+				for _, rawdata := range data {
+					rawdata2 := rawdata //here
+
+				}
+
+				file, err := os.Create(comicURL[28:])
+				if err != nil {
+					log.Fatal(err)
+				}
+				defer file.Close()
+
+				_, err = io.Copy(file, rawdata2) //here
+				if err != nil {
+					log.Fatal(err)
+
+				}
+				prevLink := html.Find("a", "rel", "prev")
+				u = "http://xkcd.com" + prevLink.Attrs()["href"]
+
+				//Save the image to ./xkcd
+
 			}
 
-			//Save the image to ./xkcd
-			// imageFile, err := ioutil.ReadDir("./xkcd")
-			// if err != nil {
-			// 	log.Fatal(err)
-			// }
-			// fmt.Println(imageFile)
-			prevLink := html.Find("a", "rel", "prev")
-			u = "http://xkcd.com" + prevLink.Attrs()["href"]
 		}
 
 	}
-
 }
