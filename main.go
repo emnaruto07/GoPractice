@@ -16,7 +16,7 @@ func main() {
 
 func imageDownloader(u string) {
 
-	if strings.HasSuffix(u, "#") {
+	if !strings.HasSuffix(u, "#") {
 		for {
 			fmt.Printf("Downloading page from %v...\n", u)
 			resp, err := soup.Get(u)
