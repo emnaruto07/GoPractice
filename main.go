@@ -49,24 +49,20 @@ func imageDownloader(u string) {
 				if err != nil {
 					log.Panic(err)
 				}
-				imgData := soup.HTMLParse(resp)
-				data := imgData.HTML()
-				for _, rawdata := range data {
-					rawdata2 := rawdata //here
 
-				}
-
+				os.Chdir("./xkcd")
 				file, err := os.Create(comicURL[28:])
 				if err != nil {
 					log.Fatal(err)
 				}
-				defer file.Close()
 
-				_, err = io.Copy(file, rawdata2) //here
+				reader := strings.NewReader(resp)
+				_, err = io.Copy(file, reader) //here
 				if err != nil {
 					log.Fatal(err)
-
 				}
+
+				// }
 				prevLink := html.Find("a", "rel", "prev")
 				u = "http://xkcd.com" + prevLink.Attrs()["href"]
 
