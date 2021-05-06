@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 
@@ -41,29 +42,32 @@ func imageDownloader(u string) {
 			}
 			html := soup.HTMLParse(resp)
 			comicElem := html.Find("div", "id", "comic").FindAll("img")
+			if len(comicElem) == 0 {
+				fmt.Println("[!!]No image found!!")
+				prevLink := html.Find("a", "rel", "prev")
+				u = "http://xkcd.com" + prevLink.Attrs()["href"]
+				continue
+			}
 			for _, img := range comicElem {
 				comicURL = "http:" + img.Attrs()["src"]
 				fmt.Printf("Downloading image from %v...\n", comicURL)
-				resp, err := soup.Get(comicURL)
+				resp, err := http.Get(comicURL)
 				if err != nil {
 					fmt.Println("[!!]Invalid URL")
-				} else {
-					//Save the image to ./xkcd
-					os.Chdir("./xkcd")
-					file, err := os.Create(comicURL[28:])
-					if err != nil {
-						log.Fatalln("[-]Check file names")
-					}
-
-					reader := strings.NewReader(resp)
-					_, err = io.Copy(file, reader)
-					if err != nil {
-						log.Fatal(err)
-					}
-					prevLink := html.Find("a", "rel", "prev")
-					u = "http://xkcd.com" + prevLink.Attrs()["href"]
+				}
+				//Save the image to ./xkcd
+				os.Chdir("./xkcd")
+				file, err := os.Create(comicURL[28:])
+				if err != nil {
+					log.Fatalln("[-]Check file names")
 				}
 
+				_, err = io.Copy(file, resp.Body)
+				if err != nil {
+					log.Fatal(err)
+				}
+				prevLink := html.Find("a", "rel", "prev")
+				u = "http://xkcd.com" + prevLink.Attrs()["href"]
 			}
 
 		}
