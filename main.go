@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -11,7 +10,7 @@ import (
 	"github.com/anaskhan96/soup"
 )
 
-const url = "https://xkcd.com/2199"
+const url = "https://xkcd.com/"
 
 var comicURL string
 
@@ -54,17 +53,20 @@ func imageDownloader(u string) {
 				resp, err := http.Get(comicURL)
 				if err != nil {
 					fmt.Println("[!!]Invalid URL")
+					prevLink := html.Find("a", "rel", "prev")
+					u = "http://xkcd.com" + prevLink.Attrs()["href"]
+					continue
 				}
 				//Save the image to ./xkcd
 				os.Chdir("./xkcd")
 				file, err := os.Create(comicURL[28:])
 				if err != nil {
-					log.Fatalln("[-]Check file names")
+					fmt.Println("[-]Check file names")
 				}
 
 				_, err = io.Copy(file, resp.Body)
 				if err != nil {
-					log.Fatal(err)
+					fmt.Println("[!!!]Invalid Image")
 				}
 				prevLink := html.Find("a", "rel", "prev")
 				u = "http://xkcd.com" + prevLink.Attrs()["href"]
