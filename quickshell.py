@@ -5,7 +5,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("-ip","--ipaddress",help="provide ip address")
 parser.add_argument("-p","--port",help="provide port number")
-parser.add_argument("-lang","--langauge",help="provide payload langauge")
+parser.add_argument("-lang","--language",help="provide payload langauge")
 parser.add_argument("-s","--silent",help="no Banner.")
 args = parser.parse_args()
 
@@ -24,7 +24,7 @@ payloads = {
 }
 ipaddress = args.ipaddress
 port = args.port
-language = args.langauge
+language = args.language
 
 def ReverseShell(ip, port, language):
     lang = language
@@ -35,7 +35,7 @@ if ipaddress == "" :
     print("please provide the ip!")
 elif port == "":
     print("Please provide the port!")
-elif langauge == "":
+elif language == "":
     print("Please provide the payload language!")
 else:
-    cmd = ReverseShell(ipaddress,port,langauge)
+    cmd = ReverseShell(ipaddress,port,language)
