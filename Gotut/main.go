@@ -19,7 +19,7 @@ func blah() {
 }
 
 
-// func generateHash(twc *TwitterConfig) { //twc = 0xidoapisapoi
+// func generateHash(twc *TwitterConfig) {
 	
 // 	// twc is pointer(*) to TwitterConfig
 
@@ -32,7 +32,86 @@ func blah() {
 // 	return nil
 // }
 
+type Person struct{
+	name string
+	age int
+}
+
+type UserPool []Person
+
+// ErrorCode the error code returned by the programs
+type ErrorCode uint
+
+type Error struct{
+	code ErrorCode
+	message string
+}
+
+type Coord struct{
+	x int
+	y int
+}
+
+var delhiLocation Coord = Coord{
+	x: 424423,
+	y: 424232,
+}
+var meerutLocation Coord = Coord{
+	x: 424423,
+	y: 424232,
+}
+
+type Cities []Coord
+
+type Objects []Coord
+
+
 func main() {
+	cities := Cities{delhiLocation, meerutLocation}
+
+	objects := Objects{
+		{ 12, 23 },
+		{ 34, 45 },
+	}
+
+	// len(cities) // 2
+	// cap(cities) // 
+	
+	// slice := []int{ 0, 1, }
+	slice = append(slice, 2, 3, 4) // No game No life
+
+	slice := make([]int, 0, 10)
+
+	fmt.Println(slice) // 0, 1	
+
+	//
+
+
+	path := Path{
+		// coord,
+		// coord.,
+		// coord,
+		// ...
+	}
+
+	arr := [...]int{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, }
+
+	// [0 1 2 12 4 5 6 7 8 9]
+	//    |       |
+
+  slice := arr[1:6] // [1 2 12 4 5]
+
+	slice[1] // 2	
+	slice[2] = 12
+	arr[3] == slice[2]
+
+	
+
+	person := Person{ "shazeb", 28 }
+
+	person2 := Person{ "keo", 20 }
+
+	person.
 	blah()
 	fmt.Println("testing")
 
@@ -89,12 +168,13 @@ func main() {
 	[*] Package
 	[*] Public / Private indentifiers
 	[*] Local / Global/ Private
-	[*] `type` Keyword
-	[ ] Arrays [ghjjh,hgjhj]
-	[ ] Array Slices[]
-	[ ] `append` function (add)
-	[ ] `make` function
-	[*] Maps
+	//data modelling..
+	[*] `type` Keyword [to create custom type.]
+	[*] Arrays [ghjjh,hgjhj]
+	[*] Array Slices[]
+	[*] `append` function (add)
+	[-] `make` function
+	[ ] Maps
 	[*] Structs
 	[ ] Methods
 	[ ] `new` function

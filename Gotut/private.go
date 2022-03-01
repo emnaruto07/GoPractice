@@ -1,23 +1,27 @@
-package blah
+package main
 
+import (
+	"fmt"
+	"bufio"
+	"os"
+)
 
-type Person struct {
-	Age int // public
-	Name string // public
-	aadhar string // private
+func main() {
+	scanner := bufio.NewScanner(os.Stdin)
+
+	inputs := make([]string, 0)
+
+	for scanner.Scan() {
+		text := scanner.Text()
+		input := append(inputs, text)
+
+		if text == "" {
+			break
+		}
+		_ = input
+	}
+
+	fmt.Println(inputs)
 }
 
-/*
-local -- cannot touch
-global -- possibly touch
-      |-- Capital, Smol
-
-func Gu() {
-	var ; // local
-}
-
-// import "blah"
-
-// var keo blah.Person
-// keo.Name, keo.Age, keo.aadhar
-// keo.Gu(), keo.Gu.k
+// go run private.go
