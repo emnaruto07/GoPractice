@@ -67,6 +67,15 @@ type Objects []Coord
 
 
 func main() {
+	// maps
+	m := make(map[string]int, 100) // initialization, with capacity 1000
+	m := map[string]int {} // initialization, literal
+	m["key"] = 7 // setters, inserts
+	val := m["key"] // getter, key exist, panic
+	val, ok := m["key"] // getter, key may not exist, ok is bool
+	delete(m["key"])
+
+
 	cities := Cities{delhiLocation, meerutLocation}
 
 	objects := Objects{
@@ -167,14 +176,14 @@ func main() {
 
 	[*] Package
 	[*] Public / Private indentifiers
-	[*] Local / Global/ Private
+	[*] Local / Global / Private
 	//data modelling..
 	[*] `type` Keyword [to create custom type.]
 	[*] Arrays [ghjjh,hgjhj]
 	[*] Array Slices[]
 	[*] `append` function (add)
 	[-] `make` function
-	[ ] Maps
+	[*] Maps
 	[*] Structs
 	[ ] Methods
 	[ ] `new` function
@@ -182,10 +191,11 @@ func main() {
 	[ ] Function closures
 
 	[ ] Interface
-	[ ] Duck Typing
+	[ ] Duck Typing - If it quacks like a duck, and walks like a duck, then it is a duck.
 	[ ] Type Assertion
 	[ ] Type Switch
 	[ ] Stringer
+	[ ] Generics
 
 	[*] Goroutines
 	[ ] Channels

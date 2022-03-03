@@ -13,15 +13,18 @@ func main() {
 
 	for scanner.Scan() {
 		text := scanner.Text()
-		input := append(inputs, text)
+		inputs := append(inputs, text)
 
 		if text == "" {
 			break
 		}
-		_ = input
+		// _ = input
 	}
 
 	fmt.Println(inputs)
 }
 
 // go run private.go
+// take words as input and count the occurence of each word
+// hi, hello, hi, bye, hello
+// hi: 2, hello: 2, bye: 1
