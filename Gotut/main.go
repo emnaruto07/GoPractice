@@ -32,25 +32,65 @@ func blah() {
 // 	return nil
 // }
 
-type Person struct{
+type Person struct {
 	name string
-	age int
+	age int // 20
 }
+
+func (p *Person) Grow() {
+	p.age += 1
+}
+p.Grow()
+
+func (p Person) Age() int {
+	return p.age
+}
+a := p.Age() // 20
+
+// f(knowledge, experience, talent)
 
 type UserPool []Person
 
 // ErrorCode the error code returned by the programs
 type ErrorCode uint
 
-type Error struct{
-	code ErrorCode
-	message string
+type Error struct {
+	code ErrorCode `key:"value"` // annotations
+	message string `json:"msg,omitempty"`
+	blah string `json:"-"`
+}
+
+type A struct {
+	field string
+}
+
+type B struct {
+	A // composition
+}
+
+var b = B {
+	field: "blah",
 }
 
 type Coord struct{
 	x int
 	y int
 }
+
+
+var k = Coord {
+	x: 2, y: 8
+}
+
+func dist(c Coord) int {
+	c.x, c.y
+}
+d := dist(k)
+
+func (c Coord) dist() int {
+	c.x, c.y
+}
+d := k.dist()
 
 var delhiLocation Coord = Coord{
 	x: 424423,
@@ -66,7 +106,13 @@ type Cities []Coord
 type Objects []Coord
 
 
+
+
 func main() {
+	p := new(Person) // allocate *Person
+	p.name = "blah"
+	p.age = 20
+	age := p.Age()
 	// maps
 	m := make(map[string]int, 100) // initialization, with capacity 1000
 	m := map[string]int {} // initialization, literal
@@ -129,6 +175,16 @@ func main() {
 	// https://github.com/emnaruto07/beginner-javascript/blob/a8d7bae1c9ffb2b0bf2c38cbc03fe4d60371b09c/main.go#L11
 }
 
+// happy path use case
+func badfn() (int, error) {}
+func fn() {
+	val, err := badfn()
+	if err != nil {
+		handle(err)
+		return
+	}
+}
+
 
 
 /*
@@ -185,8 +241,10 @@ func main() {
 	[-] `make` function
 	[*] Maps
 	[*] Structs
-	[ ] Methods
-	[ ] `new` function
+	    | - Annotation
+			| - Composition, over inheritance
+	[*] Methods
+	[*] `new` function
 	[ ] Functions as values
 	[ ] Function closures
 
@@ -205,3 +263,5 @@ func main() {
 	[*] Default Select
 	[ ] Syncing
 */
+
+
