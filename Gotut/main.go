@@ -230,7 +230,7 @@ func fn() {
 	[*] Fallthrough
 	[*] `defer` statement
 
-	[*] Package
+	[-] PackageS
 	[*] Public / Private indentifiers
 	[*] Local / Global / Private
 	//data modelling..
