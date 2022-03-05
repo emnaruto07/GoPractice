@@ -245,7 +245,7 @@ func fn() {
 			| - Composition, over inheritance
 	[*] Methods
 	[*] `new` function
-	[ ] Functions as values
+	[-] Functions as values
 	[ ] Function closures
 
 	[ ] Interface
