@@ -105,10 +105,21 @@ type Cities []Coord
 
 type Objects []Coord
 
-
-
-
 func main() {
+	cint := make(chan int) // create channel
+	go func() {
+		cint <- 8 // block
+		fmt.Println("sadfdsf")
+	}()
+	recv := <- cint
+	fmt.Println(recv, "blah")
+
+	recv, ok := <-cint
+
+	close(cint)
+
+	var sender (chan<- int) = cint
+
 	p := new(Person) // allocate *Person
 	p.name = "blah"
 	p.age = 20
@@ -246,22 +257,21 @@ func fn() {
 	[*] Methods
 	[*] `new` function
 	[-] Functions as values
-	[ ] Function closures
+	[-] Function closures
 
-	[ ] Interface
-	[ ] Duck Typing - If it quacks like a duck, and walks like a duck, then it is a duck.
+	[-] Interface
+	[-] Duck Typing - If it quacks like a duck, and walks like a duck, then it is a duck.
 	[ ] Type Assertion
-	[ ] Type Switch
-	[ ] Stringer
-	[ ] Generics
+	[*] Type Switch
+	[*] Stringer
+	// [ ] Generics
 
-	[*] Goroutines
-	[ ] Channels
-	[ ] Buffered Channels
-	[ ] Range and Close
+	[*] Goroutines go funccall()
+	[*] Channels, chan T
+	[*] Buffered Channels
+	[*] Range and Close
 	[*] Select
 	[*] Default Select
-	[ ] Syncing
 */
 
 

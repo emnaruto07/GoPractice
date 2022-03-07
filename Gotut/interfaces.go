@@ -1,8 +1,18 @@
 package main
 
 import (
+	"context"
+	"database/sql"
 	"fmt"
+	"io"
 )
+
+type DBTX interface {
+	ExecContext(context.Context, string, ...interface{}) (sql.Result, error)
+	PrepareContext(context.Context, string) (*sql.Stmt, error)
+	QueryContext(context.Context, string, ...interface{}) (*sql.Rows, error)
+	QueryRowContext(context.Context, string, ...interface{}) *sql.Row
+}
 
 // type NumberRemote int
 
@@ -20,8 +30,8 @@ type Remote interface {
 }
 
 type TataPlayRemote struct {
-	currentChannel int
-	volume         int
+	cc     int
+	volume int
 }
 
 func (t *TataPlayRemote) VolumeUp() {
@@ -33,16 +43,79 @@ func (t *TataPlayRemote) VolumeDown() {
 }
 
 func (t *TataPlayRemote) SwitchChannel(number int) {
-	t.currentChannel = number
+	t.cc = number
 }
 
 func (t *TataPlayRemote) CurrentChannel() int {
-	return t.currentChannel
+	return t.cc
+}
+
+type TV struct {
+	r Remote // interface
+}
+
+// package io
+type Reader interface {
+	Read() ([]byte, int)
+}
+
+// os, net, net/http
+// File, TCPConn, http.Request
+
+type Writer interface {
+	Write([]byte) int
+}
+
+func work(r io.Reader) {
+
+}
+
+type Adder interface {
+	Add(int) int
+}
+
+func Add5(a Adder) {
+	a.Add(5)
+}
+
+type Num struct {
+	n int
+}
+
+func (num *Num) String() string {
+	return fmt.Sprintf("Num=%d", num.n)
+}
+
+func (num *Num) Add(input int) int {
+	num.n += input
+	return num.n
+}
+
+func (i *int) Add(k int) int {}
+
+// var remote Remote = TataPlayRemote{100, 0}
+// remote.CurrentChannel()
+// remote.VolumeUp()
+// fmt.Println("Test")
+
+// number
+// var num Adder = &Num{0}
+// Add5(num)
+// k, ok := num.(*int) // type conversion
+// fmt.Println(k.n)
+
+// fmt.Println(k)
+
+func typeof(v interface{}) {
+	switch v.(type) {
+	case int:
+		fmt.Println("fasdfas")
+	case string:
+		fmt.Println("string")
+	}
 }
 
 func main() {
-	var remote Remote = NumberRemote(200)
-	remote.CurrentChannel()
-	remote.VolumeUp()
-	fmt.Println("Test")
+	typeof("sdafdsa") // string
+	typeof(int(5))    // int
 }
