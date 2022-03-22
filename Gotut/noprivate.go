@@ -42,6 +42,7 @@ func main() {
 	// k = funcvar(k)
 
 	// funcvar == idiot
+
 }
 
 //dummy
