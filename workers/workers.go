@@ -10,14 +10,16 @@ import (
 func main() {
 	con, err := strconv.Atoi(os.Args[1])
 
+	main2()
+
 	if err != nil {
 		panic(err)
 	}
 
 	wg := new(sync.WaitGroup)
 	for i := 0; i < con; i++ {
-		go worker(wg, i)
-		go master(wg, i)
+		go w(wg, i)
+		go m(wg, i)
 		wg.Add(2) // counter = 10
 
 	}
@@ -28,12 +30,12 @@ func main() {
 	fmt.Println("done")
 }
 
-func worker(wg *sync.WaitGroup, n int) {
+func w(wg *sync.WaitGroup, n int) {
 	defer wg.Done() // counter--
 	fmt.Printf("worker %d \n", n)
 }
 
-func master(wg *sync.WaitGroup, n int) {
+func m(wg *sync.WaitGroup, n int) {
 	defer wg.Done()
 	fmt.Printf("master %d \n", n)
 }
